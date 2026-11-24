@@ -118,6 +118,9 @@ if(H){
   setR();addEventListener('resize',setR);
   H.addEventListener('mousemove',function(e){var b=H.getBoundingClientRect();tx=(e.clientX-b.left)/b.width;ty=(e.clientY-b.top)/b.height;last=performance.now();idle=false});
   H.addEventListener('mouseleave',function(){idle=true});
+  function hT(e){var t=e.touches[0],b=H.getBoundingClientRect();tx=(t.clientX-b.left)/b.width;ty=(t.clientY-b.top)/b.height;last=performance.now();idle=false}
+  H.addEventListener('touchstart',hT,{passive:true});H.addEventListener('touchmove',hT,{passive:true});
+  H.addEventListener('touchend',function(){idle=true},{passive:true});
   function tick(now){
     if(idle||now-last>2600){var k=(now-t0)/1000;tx=.62+.22*Math.sin(k*.45);ty=.5+.2*Math.sin(k*.7)}
     var e=reduce?1:.12;x+=(tx-x)*e;y+=(ty-y)*e;r+=(tr-r)*.08;
@@ -147,7 +150,7 @@ if(H){
     if(seeds.length)requestAnimationFrame(step);else{running=false;ctx.clearRect(0,0,W,Hh)}
   }
   H.addEventListener('click',function(e){if(e.target.closest('a,button'))return;var b=H.getBoundingClientRect();
-    if(!reduce)sow(e.clientX-b.left,e.clientY-b.top);
+    if(!reduce){sow(e.clientX-b.left,e.clientY-b.top);if(window.SidBuzz)SidBuzz(18)}
     tx=(e.clientX-b.left)/b.width;ty=(e.clientY-b.top)/b.height;last=performance.now();idle=false;});
 }
 

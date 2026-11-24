@@ -133,3 +133,50 @@ html.lang-indic .pagehead.ph-night h1,html.lang-indic .ph-h1{font-size:clamp(52p
 html.lang-indic .lh-badge text{font-size:15px;letter-spacing:.04em}
 
 @media (prefers-reduced-motion:reduce){.loader{display:none}.roll>span{transition:none}}
+
+/* ================= Phone & tablet ================= */
+/* full-screen menu */
+@media (max-width:900px){
+  .menu-open header.main{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+  .menu-open,.menu-open body{overflow:hidden}
+  header.main nav#nav.open{position:fixed;inset:0;z-index:60;display:flex!important;flex-direction:column;justify-content:center;background:var(--fx-night)!important;border:0;padding:calc(env(safe-area-inset-top,0px) + 90px) max(24px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 40px) max(24px,env(safe-area-inset-left,0px));animation:menuIn .45s cubic-bezier(.7,0,.3,1)}
+  header.main nav#nav.open ul{padding:0;gap:4px;align-items:flex-start}
+  header.main nav#nav.open a{font-family:var(--fx-giant);font-weight:800;text-transform:uppercase;font-size:clamp(38px,10vw,64px);line-height:1.05;padding:4px 0!important;color:#fff;background:none!important;box-shadow:none;border-radius:0;letter-spacing:.01em;opacity:0;transform:translateY(24px);animation:menuItem .5s cubic-bezier(.2,.8,.2,1) forwards}
+  header.main nav#nav.open a.on{color:var(--fx-lime)}
+  header.main nav#nav.open a.cta{color:var(--fx-night);background:var(--fx-lime)!important;padding:8px 18px!important;border-radius:999px;margin-top:14px;font-size:clamp(26px,7vw,40px)}
+  header.main nav#nav.open li:nth-child(1) a{animation-delay:.08s}header.main nav#nav.open li:nth-child(2) a{animation-delay:.13s}header.main nav#nav.open li:nth-child(3) a{animation-delay:.18s}header.main nav#nav.open li:nth-child(4) a{animation-delay:.23s}header.main nav#nav.open li:nth-child(5) a{animation-delay:.28s}header.main nav#nav.open li:nth-child(6) a{animation-delay:.33s}header.main nav#nav.open li:nth-child(7) a{animation-delay:.38s}
+  header.main nav#nav.open .roll>span:last-child{color:var(--fx-lime)}
+  .burger{position:relative;z-index:61;min-width:72px;min-height:44px}
+  .menu-open .burger{background:var(--fx-lime)!important;border-color:var(--fx-lime)!important;color:var(--fx-night)!important}
+  .menu-open .brand{position:relative;z-index:61}
+  .menu-open .brand .bn,.menu-open .brand .bn small{color:#fff}
+  html.lang-indic header.main nav#nav.open a{font-family:'Noto Sans Devanagari','Noto Sans Kannada',sans-serif;text-transform:none;font-size:clamp(28px,7.5vw,44px);line-height:1.35}
+}
+@keyframes menuIn{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes menuItem{to{opacity:1;transform:none}}
+
+/* compact top bar */
+@media (max-width:700px){
+  .util .wrap{justify-content:center;flex-wrap:nowrap;gap:12px;padding-top:6px;padding-bottom:6px}
+  .util .wrap>span:first-child{display:none}
+  .util .right{gap:14px;flex-wrap:nowrap;align-items:center;font-size:13px}
+  .util .right a:nth-child(2){display:none}
+}
+
+/* swipe rails on touch and small screens */
+@media (max-width:900px){
+  .grid.rail{margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px));scroll-padding-inline:max(16px,env(safe-area-inset-left,0px));scroll-snap-type:x mandatory}
+  .grid.rail>*{flex:0 0 min(80%,340px)}
+}
+.card:active,.tile:active,.vcard:active,.rg-card:active{transform:scale(.98)}
+
+/* phone action bar */
+.mbar{display:none}
+@media (max-width:700px){
+  .mbar{position:fixed;left:0;right:0;bottom:0;z-index:55;display:flex;gap:8px;padding:8px max(12px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));background:rgba(15,42,29,.92);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+  .mbar.hide,.menu-open .mbar{transform:translateY(110%)}
+  .mbar a{flex:1 1 auto;white-space:nowrap;padding:0 10px;display:flex;align-items:center;justify-content:center;gap:6px;min-height:46px;border-radius:12px;text-decoration:none;font-weight:700;font-size:13.5px;color:#fff;background:rgba(255,255,255,.1)}
+  .mbar a.pri{background:var(--fx-lime);color:var(--fx-night)}
+  .mbar svg{width:18px;height:18px;flex:none}
+  body{padding-bottom:calc(64px + env(safe-area-inset-bottom,0px))}
+}

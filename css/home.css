@@ -178,3 +178,34 @@
   .lh-badge svg{animation:none}
   .trail-layer{display:none}
 }
+
+/* ================= Phone & tablet: homepage ================= */
+@media (max-width:700px){
+  .lhero{min-height:clamp(560px,calc(100svh - 150px),700px)}
+  .lh-layer{align-items:flex-start;padding-top:106px}
+  .lh-h{font-size:clamp(78px,26vw,150px)}
+  .lh-ui{padding-block:20px 22px}
+  .lh-bottom{position:relative}
+  .lh-bottom::before{content:"";position:absolute;inset:-60px calc(-1 * max(16px,env(safe-area-inset-left,0px))) -22px;background:linear-gradient(180deg,rgba(15,42,29,0),rgba(15,42,29,.88) 38%);z-index:-1;pointer-events:none}
+  .lh-copy p{font-size:16px;margin-bottom:14px}
+  .lhero .btns{display:flex;gap:10px;flex-wrap:wrap}
+  .lhero .btns .btn{padding:12px 18px;font-size:15px}
+  .lh-badge{display:none}
+  .lh-top{font-size:13px}
+  .rg-count{display:block;font-size:20px}
+  .rg-count b{font-size:38px}
+  .rg-head{align-items:flex-end}
+  .fchips{flex-wrap:nowrap;overflow-x:auto;margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:4px max(16px,env(safe-area-inset-left,0px)) 8px;scrollbar-width:none;width:calc(100% + 2 * max(16px,env(safe-area-inset-left,0px)))}
+  .fchips::-webkit-scrollbar{display:none}
+  .chip{flex:none}
+  .vlist{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:4px max(16px,env(safe-area-inset-left,0px)) 12px;scroll-padding-inline:max(16px,env(safe-area-inset-left,0px));scrollbar-width:none}
+  .vlist::-webkit-scrollbar{display:none}
+  .vcard{flex:0 0 80%;scroll-snap-align:start}
+  .band{min-height:420px}
+  .band h2{font-size:clamp(40px,12vw,60px)}
+  .jstage{top:66px}
+}
+@media (min-width:701px) and (max-width:1024px){
+  .lh-h{font-size:clamp(110px,20vw,220px)}
+  .rg-card{height:min(52vh,440px)}
+}

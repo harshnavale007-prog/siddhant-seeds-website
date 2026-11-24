@@ -127,18 +127,21 @@ var bh=document.querySelector('.biohero');
 if(bh&&!bh.hasAttribute('data-trail')){bh.setAttribute('data-trail','bio');bh.setAttribute('data-cursor','Scatter');
   var hint=document.createElement('span');hint.className='trail-hint';hint.textContent='Move across the hero to scatter our packs';
   var hp=bh.querySelector('.bhrow p');if(hp)hp.parentNode.insertBefore(hint,hp.nextSibling);}
-if(fine&&!reduce)[].forEach.call(document.querySelectorAll('[data-trail]'),function(B){
+if(!reduce)[].forEach.call(document.querySelectorAll('[data-trail]'),function(B){
   var IM=B.getAttribute('data-trail')==='bio'?BIO:SEEDS.concat(BIO.slice(0,6)),k=0,lx=-999,ly=-999;
   var layer=B.querySelector('.trail-layer');if(!layer){layer=document.createElement('div');layer.className='trail-layer';layer.setAttribute('aria-hidden','true');B.insertBefore(layer,B.firstChild)}
   IM.forEach(function(s){var i=new Image();i.src=s});
-  B.addEventListener('mousemove',function(e){
-    var b=B.getBoundingClientRect(),px=e.clientX-b.left,py=e.clientY-b.top;
-    if(Math.hypot(px-lx,py-ly)<90)return;lx=px;ly=py;
+  function drop(cx,cy,gap){
+    var b=B.getBoundingClientRect(),px=cx-b.left,py=cy-b.top;
+    if(Math.hypot(px-lx,py-ly)<gap)return;lx=px;ly=py;
     var im=document.createElement('img');im.src=IM[k++%IM.length];im.alt='';
     im.style.transform='translate('+px+'px,'+py+'px) rotate('+((Math.random()-.5)*24)+'deg)';
     layer.appendChild(im);im.addEventListener('animationend',function(){im.remove()});
     if(layer.children.length>14)layer.firstChild.remove();
-  });
+  }
+  B.addEventListener('mousemove',function(e){drop(e.clientX,e.clientY,90)});
+  B.addEventListener('touchstart',function(e){var t=e.touches[0];lx=ly=-999;drop(t.clientX,t.clientY,0)},{passive:true});
+  B.addEventListener('touchmove',function(e){var t=e.touches[0];drop(t.clientX,t.clientY,70)},{passive:true});
 });
 
 /* ---- inner-page lens hero ---- */
@@ -152,6 +155,8 @@ if(ph){
   lensL.appendChild(cl);ph.appendChild(lensL);
   var ptx=.75,pty=.5,pxx=.75,pyy=.5,pr=0,lastM=0,t1=performance.now();
   ph.addEventListener('mousemove',function(e){var b=ph.getBoundingClientRect();ptx=(e.clientX-b.left)/b.width;pty=(e.clientY-b.top)/b.height;lastM=performance.now()});
+  function phT(e){var t=e.touches[0],b=ph.getBoundingClientRect();ptx=(t.clientX-b.left)/b.width;pty=(t.clientY-b.top)/b.height;lastM=performance.now()}
+  ph.addEventListener('touchstart',phT,{passive:true});ph.addEventListener('touchmove',phT,{passive:true});
   (function lt(now){
     if(now-lastM>2400){var q=(now-t1)/1000;ptx=.6+.28*Math.sin(q*.5);pty=.55+.25*Math.sin(q*.8)}
     pxx+=(ptx-pxx)*.12;pyy+=(pty-pyy)*.12;pr+=((ph.clientHeight*.42)-pr)*.06;
@@ -169,10 +174,10 @@ if(fine&&!reduce)[].forEach.call(document.querySelectorAll('.card,.tile,.whygrid
 });
 
 /* ---- drag rails for card grids ---- */
-if(window.matchMedia('(min-width: 901px)').matches)[].forEach.call(document.querySelectorAll('main .grid'),function(g){
+[].forEach.call(document.querySelectorAll('main .grid'),function(g){
   if(g.children.length<3)return;
   g.classList.add('rail');g.setAttribute('data-cursor','Drag');g.setAttribute('data-lenis-prevent','');
-  var bar=document.createElement('div');bar.className='rail-bar';bar.innerHTML='<span>Drag sideways to see more</span><i><b></b></i>';
+  var bar=document.createElement('div');bar.className='rail-bar';bar.innerHTML='<span>'+(fine?'Drag sideways to see more':'Swipe sideways to see more')+'</span><i><b></b></i>';
   g.parentNode.insertBefore(bar,g.nextSibling);var fill=bar.querySelector('b');
   function upd(){var m=g.scrollWidth-g.clientWidth;fill.style.width=(m>0?(g.clientWidth/g.scrollWidth*100+(100-g.clientWidth/g.scrollWidth*100)*g.scrollLeft/m):100)+'%';bar.style.display=m>4?'':'none'}
   g.addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);addEventListener('load',upd);upd();
@@ -184,4 +189,33 @@ if(window.matchMedia('(min-width: 901px)').matches)[].forEach.call(document.quer
   g.addEventListener('click',function(e){if(moved>6){e.preventDefault();e.stopPropagation()}},true);
   g.addEventListener('dragstart',function(e){e.preventDefault()});
 });
+
+/* ---- full-screen mobile menu ---- */
+var burger=document.getElementById('burger'),navEl=document.getElementById('nav');
+if(burger&&navEl){
+  function T(x){return window.SidT?SidT(x):x}
+  function sync(){var o=navEl.classList.contains('open');document.documentElement.classList.toggle('menu-open',o);
+    burger.textContent=T(o?'Close':'Menu');burger.setAttribute('aria-expanded',o);
+    if(lenis){o?lenis.stop():lenis.start()}}
+  new MutationObserver(sync).observe(navEl,{attributes:true,attributeFilter:['class']});
+  addEventListener('keydown',function(e){if(e.key==='Escape'&&navEl.classList.contains('open'))navEl.classList.remove('open')});
+  addEventListener('resize',function(){if(innerWidth>900&&navEl.classList.contains('open'))navEl.classList.remove('open')});
+  document.addEventListener('sidlang',sync);
+}
+
+/* ---- phone action bar ---- */
+(function(){
+  var bar=document.createElement('div');bar.className='mbar';bar.setAttribute('role','navigation');bar.setAttribute('aria-label','Quick actions');
+  var ph='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>';
+  var sd='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 21V10"/><path d="M12 14c-4 0-6-3-6-6 4 0 6 2 6 6zM12 11c4 0 6-2.5 6-5.5-4 0-6 2-6 5.5z"/></svg>';
+  var dl='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10l2-5h14l2 5M4 10v10h16V10M9 20v-5h6v5"/></svg>';
+  bar.innerHTML='<a href="tel:+917796177709">'+ph+'<span>Call</span></a><a href="products.html">'+sd+'<span>Products</span></a><a class="pri" href="contact.html#dealer">'+dl+'<span>Become a dealer</span></a>';
+  document.body.appendChild(bar);
+  var ly=scrollY;
+  addEventListener('scroll',function(){var y=scrollY;if(Math.abs(y-ly)<8)return;bar.classList.toggle('hide',y>ly&&y>200);ly=y},{passive:true});
+})();
+
+/* ---- light haptics on Android ---- */
+window.SidBuzz=function(ms){try{if(navigator.vibrate&&!reduce)navigator.vibrate(ms||12)}catch(e){}};
+document.addEventListener('click',function(e){if(e.target.closest('.chip,.jstep,.mbar a,.burger'))SidBuzz(10)});
 })();
