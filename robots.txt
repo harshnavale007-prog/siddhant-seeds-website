@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://siddhantseedsbiotech.com/sitemap.xml

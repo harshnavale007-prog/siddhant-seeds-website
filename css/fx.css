@@ -180,3 +180,9 @@ html.lang-indic .lh-badge text{font-size:15px;letter-spacing:.04em}
   .mbar svg{width:18px;height:18px;flex:none}
   body{padding-bottom:calc(64px + env(safe-area-inset-bottom,0px))}
 }
+
+/* search-friendly headings */
+.ph-brand{display:block;font-family:var(--fx-giant);font-weight:800;font-size:clamp(16px,2vw,22px);letter-spacing:.14em;line-height:1.2;margin-bottom:6px;color:var(--fx-lime);-webkit-text-stroke:0}
+.ph-lens .ph-brand{color:#fff}
+h1.lh-kick{font:inherit;color:inherit;letter-spacing:inherit;text-transform:inherit;margin:0;line-height:inherit;text-shadow:none}
+html.lang-indic .ph-brand{font-family:'Noto Sans Devanagari','Noto Sans Kannada',sans-serif;letter-spacing:0}
