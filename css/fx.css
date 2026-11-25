@@ -186,3 +186,50 @@ html.lang-indic .lh-badge text{font-size:15px;letter-spacing:.04em}
 .ph-lens .ph-brand{color:#fff}
 h1.lh-kick{font:inherit;color:inherit;letter-spacing:inherit;text-transform:inherit;margin:0;line-height:inherit;text-shadow:none}
 html.lang-indic .ph-brand{font-family:'Noto Sans Devanagari','Noto Sans Kannada',sans-serif;letter-spacing:0}
+
+/* ================= Farmer testimonial videos ================= */
+.tvids{background:var(--fx-night);color:#fff;padding-block:84px;overflow:hidden}
+.tvids .eyebrow{color:var(--fx-lime)}
+.tv-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:22px}
+.tv-head h2{font-family:var(--fx-giant);font-weight:900;text-transform:uppercase;font-size:clamp(40px,6vw,84px);line-height:.92;color:#fff;margin:6px 0 10px;letter-spacing:0}
+.tv-head p{color:#cfe6d6;max-width:56ch;font-size:17px}
+.tvids .btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.6)}
+.tv-chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.tvids .chip{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.2);padding:9px 16px}
+.tvids .chip b{font-weight:700;opacity:.6;margin-left:4px}
+.tvids .chip[aria-pressed="true"]{background:var(--fx-lime);color:var(--fx-night);border-color:var(--fx-lime)}
+.tv-rail{position:relative}
+.tv-list{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 2px 18px;scrollbar-width:thin;scrollbar-color:rgba(200,238,106,.5) transparent}
+.tv-card{flex:0 0 min(320px,78%);scroll-snap-align:start;display:flex;flex-direction:column;text-align:left;font:inherit;color:inherit;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:0;overflow:hidden;cursor:pointer;transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .3s,background .3s}
+.tv-card:hover,.tv-card:focus-visible{transform:translateY(-6px);border-color:var(--fx-lime);background:rgba(255,255,255,.1)}
+.tv-card:active{transform:scale(.98)}
+.tv-thumb{position:relative;display:block;aspect-ratio:16/9;overflow:hidden;background:#173b29;max-width:100%}
+.tv-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.tv-card:hover .tv-thumb img{transform:scale(1.06)}
+.tv-play{position:absolute;inset:0;display:grid;place-items:center;color:var(--fx-lime);background:linear-gradient(0deg,rgba(15,42,29,.45),transparent 60%)}
+.tv-play svg{width:58px;height:58px;filter:drop-shadow(0 6px 16px rgba(0,0,0,.4));transition:transform .3s}
+.tv-card:hover .tv-play svg{transform:scale(1.12)}
+.tv-short{position:absolute;top:10px;left:10px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#fff;color:var(--fx-night);padding:3px 9px;border-radius:999px}
+.tv-meta{display:flex;flex-direction:column;gap:4px;padding:14px 16px 18px}
+.tv-tag{align-self:flex-start;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--fx-night);background:var(--fx-lime);padding:3px 10px;border-radius:999px;margin-bottom:4px}
+.tv-name{font-family:'Noto Sans Devanagari','Source Sans 3',sans-serif;font-weight:700;font-size:18px;line-height:1.3}
+.tv-place{font-family:'Noto Sans Devanagari','Source Sans 3',sans-serif;font-size:14px;color:#cfe6d6;line-height:1.35}
+.tv-nav{display:flex;gap:10px;justify-content:flex-end;margin-top:4px}
+.tv-nav button{width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;font-size:20px;cursor:pointer}
+.tv-nav button:hover{background:var(--fx-lime);color:var(--fx-night);border-color:var(--fx-lime)}
+@media (pointer:coarse){.tv-nav{display:none}}
+
+/* player */
+.tv-modal{position:fixed;inset:0;z-index:4000;background:rgba(8,22,15,.9);display:none;align-items:center;justify-content:center;padding:calc(env(safe-area-inset-top,0px) + 16px) max(16px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 16px) max(16px,env(safe-area-inset-left,0px));-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.tv-modal.on{display:flex;animation:tvIn .3s ease}
+@keyframes tvIn{from{opacity:0}to{opacity:1}}
+.tv-box{position:relative;width:min(1000px,100%);display:flex;flex-direction:column;align-items:center;gap:12px}
+.tv-frame{width:100%;aspect-ratio:16/9;max-width:100%;border-radius:14px;overflow:hidden;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.tv-frame.vert{width:auto;height:min(80vh,720px);aspect-ratio:9/16}
+.tv-frame iframe{width:100%;height:100%;border:0;display:block}
+.tv-close{position:absolute;top:-52px;right:0;width:44px;height:44px;border-radius:50%;border:0;background:var(--fx-lime);color:var(--fx-night);font-size:28px;line-height:1;cursor:pointer}
+.tv-yt{color:var(--fx-lime);font-weight:700;text-decoration:none}
+.tv-open,.tv-open body{overflow:hidden}
+.tv-open .mbar{transform:translateY(110%)}
+html.lang-indic .tv-head h2{font-family:'Noto Sans Devanagari','Noto Sans Kannada',sans-serif;text-transform:none;line-height:1.2}
+@media (max-width:700px){.tvids{padding-block:60px}.tv-close{top:-50px}}
